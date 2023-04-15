@@ -2,19 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -22,35 +16,31 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           Container(
             width: w,
-            height: h * 0.30,
+            height: h * 0.39,
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("img/SRI JAYA ONLINE.png"),
-                    fit: BoxFit.cover)),
+                    image: AssetImage("img/SIGN UP.png"), fit: BoxFit.cover)),
+            child: Column(
+              children: [
+                SizedBox(height: h * 0.25),
+                CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage("img/avatar.png"),
+                  backgroundColor: Colors.white60,
+                )
+              ],
+            ),
           ),
           Container(
             padding: const EdgeInsets.only(
                 left: 15,
-                bottom: 40,
+                bottom: 10,
                 right: 20,
                 top: 10), //You can use EdgeInsets like above
-            margin: const EdgeInsets.only(left: 15, bottom: 40, right: 20, top: 10),
+            margin:
+                const EdgeInsets.only(left: 15, bottom: 40, right: 20, top: 10),
             child: Column(
               children: [
-                const Text(
-                  "Hello And Welcome",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                  child: Text(
-                    "Sign in to your account",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.grey[500],
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
                 TextField(
                   //  hintText: 'PLACE HOLDER TEXT'
                   decoration: InputDecoration(
@@ -69,23 +59,12 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular((50)))),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(120, 15, 0, 0),
-                  child: Text(
-                    "Forgot your password?",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.grey[500],
-                        fontWeight: FontWeight.w600),
-                    textAlign: TextAlign.end,
-                  ),
-                ),
               ],
             ),
           ),
           Container(
             width: w * 0.5,
-            height: h * 0.10,
+            height: h * 0.09,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
               image: const DecorationImage(
@@ -93,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             child: const Center(
               child: Text(
-                "Sign In",
+                "Sign Up",
                 style: TextStyle(color: Colors.white, fontSize: 30),
               ),
             ),
@@ -101,14 +80,31 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             height: w * 0.08,
           ),
-          RichText(
-            text: TextSpan(
-                text: "Don't have an account?",
-                style: TextStyle(color: Colors.grey[500], fontSize: 20),
-                children: [TextSpan(
-                text: "Create",
-                style: TextStyle(color: Colors.grey[900], fontSize: 20))]),
-             
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+            child: Container(
+              child: Column(
+                children: [
+                  Text(
+                    "Sign up using one of the following methods",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              CircleAvatar(
+                backgroundImage: AssetImage("img/g.png"),radius: 30,
+              ),
+              SizedBox(width: 30),
+              CircleAvatar(
+                backgroundImage: AssetImage("img/f.png"),radius: 30,
+              )
+            ]),
           )
         ],
       ),
