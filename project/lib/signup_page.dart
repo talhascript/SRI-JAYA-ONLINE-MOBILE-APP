@@ -44,6 +44,17 @@ class SignUpPage extends StatelessWidget {
                 TextField(
                   //  hintText: 'PLACE HOLDER TEXT'
                   decoration: InputDecoration(
+                      hintText: "Enter Name",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular((50)))),
+                ),
+
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  //  hintText: 'PLACE HOLDER TEXT'
+                  decoration: InputDecoration(
                       hintText: "Enter Email",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular((50)))),
@@ -64,7 +75,7 @@ class SignUpPage extends StatelessWidget {
           ),
           Container(
             width: w * 0.5,
-            height: h * 0.09,
+            height: h * 0.07,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
               image: const DecorationImage(
@@ -78,7 +89,7 @@ class SignUpPage extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: w * 0.08,
+            height: w * 0.05,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
