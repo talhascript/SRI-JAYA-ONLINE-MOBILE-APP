@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           Container(
             width: w,
-            height: h * 0.30,
+            height: h * 0.33,
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("img/SRI JAYA ONLINE.png"),
@@ -42,14 +42,14 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const Text(
                   "WELCOME",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: Text(
                     "Sign in to your account",
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 15,
                         color: Colors.grey[500],
                         fontWeight: FontWeight.w600),
                   ),
@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text(
                     "Forgot your password?",
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 16,
                         color: Colors.grey[500],
                         fontWeight: FontWeight.w600),
                     textAlign: TextAlign.end,
@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           Container(
             width: w * 0.5,
-            height: h * 0.10,
+            height: h * 0.06,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
               image: const DecorationImage(

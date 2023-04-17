@@ -92,7 +92,7 @@ class SignUpPage extends StatelessWidget {
             height: w * 0.05,
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 80, 20, 20),
+            padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
             child: Container(
               child: Column(
                 children: [

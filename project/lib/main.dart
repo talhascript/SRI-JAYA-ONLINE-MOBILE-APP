@@ -5,6 +5,7 @@ import 'package:project/signup_page.dart';
 
 
 import 'home_Page.dart';
+import 'landing_Page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePageTEST(),
+      home: LandingPage(),
 
       
     );
