@@ -24,7 +24,7 @@ class LandingPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'img/SRI JAYA ONLINE(1).png',
+                    'img/SRI_JAYA_ONLINE_1_-removebg-preview.png',
                     width: 180,
                     height: 180,
                   ),
