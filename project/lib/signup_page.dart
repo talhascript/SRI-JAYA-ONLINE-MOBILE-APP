@@ -16,13 +16,13 @@ class SignUpPage extends StatelessWidget {
         children: [
           Container(
             width: w,
-            height: h * 0.39,
+            height: h * 0.33,
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("img/SIGN UP.png"), fit: BoxFit.cover)),
             child: Column(
               children: [
-                SizedBox(height: h * 0.25),
+                SizedBox(height: h * 0.20),
                 CircleAvatar(
                   radius: 50,
                   backgroundImage: AssetImage("img/avatar.png"),
@@ -92,7 +92,7 @@ class SignUpPage extends StatelessWidget {
             height: w * 0.05,
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+            padding: const EdgeInsets.fromLTRB(20, 80, 20, 20),
             child: Container(
               child: Column(
                 children: [

@@ -1,6 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
+import 'package:project/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -38,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: [
                 const Text(
-                  "Hello And Welcome",
+                  "WELCOME",
                   style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
                 Padding(
@@ -106,8 +109,10 @@ class _LoginPageState extends State<LoginPage> {
                 text: "Don't have an account?",
                 style: TextStyle(color: Colors.grey[500], fontSize: 20),
                 children: [TextSpan(
+                recognizer: TapGestureRecognizer()..onTap=()=>Get.to(()=>SignUpPage()),
                 text: "Create",
                 style: TextStyle(color: Colors.grey[900], fontSize: 20))]),
+                
              
           )
         ],
