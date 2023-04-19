@@ -16,7 +16,7 @@ class SignUpPage extends StatelessWidget {
         children: [
           Container(
             width: w,
-            height: h * 0.33,
+            height: h * 0.37,
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("img/SIGN UP.png"), fit: BoxFit.cover)),
@@ -60,7 +60,7 @@ class SignUpPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular((50)))),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 17, 0, 0),
                   child: TextField(
                     // labelText: 'PLACE HOLDER TEXT FOR PASSWORD'
                     obscureText: true,
@@ -89,7 +89,7 @@ class SignUpPage extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: w * 0.05,
+            height: w * 0.03,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
