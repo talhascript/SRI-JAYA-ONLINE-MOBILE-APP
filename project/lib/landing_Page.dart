@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:project/login_page.dart';
+import 'package:project/new_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LandingPage extends StatelessWidget {
-  const LandingPage({key});
+  const LandingPage({Key? key});
 
   @override
   Widget build(BuildContext context) {
+    //bool isLoggedIn = true; // Replace with your login logic
+    // Check if the user is logged in
+    User? user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       body: Container(
         color: Colors.black,
@@ -37,7 +43,7 @@ class LandingPage extends StatelessWidget {
                       color: Colors.white,
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
-                      letterSpacing: 2.0, // Add letter spacing
+                      letterSpacing: 2.0,
                       shadows: [
                         Shadow(
                           color: Colors.black.withOpacity(0.5),
@@ -52,25 +58,33 @@ class LandingPage extends StatelessWidget {
                     width: 200,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginPage()),
-                        );
+                        if (user != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => NewPage()),
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => LoginPage()),
+                          );
+                        }
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => NewPage()),
+                        // );
                       },
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all<EdgeInsets>(
                           EdgeInsets.all(16.0),
                         ),
                         backgroundColor: MaterialStateProperty.all<Color>(
-                          Color.fromARGB(255, 198, 64,
-                              255), // Set desired button background color
+                          Color.fromARGB(255, 198, 64, 255),
                         ),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                30.0), // Set desired button border radius
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
                       ),
@@ -79,7 +93,7 @@ class LandingPage extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white, // Set desired button text color
+                          color: Colors.white,
                         ),
                       ),
                     ),
