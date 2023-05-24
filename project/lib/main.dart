@@ -8,16 +8,7 @@ import 'landing_page.dart';
 import 'new_page.dart';
 import 'store_page.dart';
 
-// BUG FIXES
-
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+//
 
   @override
   State<MyApp> createState() => _MyAppState();
