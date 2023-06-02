@@ -5,6 +5,7 @@ import 'package:project/login_page.dart';
 import 'package:project/store_product_page.dart';
 
 import 'customer_page.dart';
+import 'approve_page.dart'; // Import the page you want to navigate to
 
 class AdminPage extends StatelessWidget {
   AdminPage({Key? key});
@@ -19,10 +20,6 @@ class AdminPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Text(
-            //   'Welcome ${FirebaseAuth.instance.currentUser?.email}',
-            //   style: TextStyle(fontSize: 24),
-            // ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -44,6 +41,18 @@ class AdminPage extends StatelessWidget {
               },
               child: Text(
                 'List All Products',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ApprovePage()), // Navigate to the ApprovePage
+                );
+              },
+              child: Text(
+                'List All Requests',
                 style: TextStyle(fontSize: 20),
               ),
             ),
@@ -82,4 +91,3 @@ class AdminPage extends StatelessWidget {
     );
   }
 }
-

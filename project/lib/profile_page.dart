@@ -2,8 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'new_page.dart';
+import 'my_requests_page.dart';
+import 'cancelled_page.dart';
+import 'ship_page.dart'; // Import the ShipPage
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  late Future<String> _displayNameFuture;
+  late Future<String> _phoneNumberFuture;
+  late Future<String> _addressFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _displayNameFuture = getCurrentUserDisplayName();
+    _phoneNumberFuture = getCurrentUserPhone();
+    _addressFuture = getCurrentUserAddress();
+  }
+
   Future<String> getCurrentUserDisplayName() async {
     String userId = FirebaseAuth.instance.currentUser!.uid;
 
@@ -77,7 +97,7 @@ class ProfilePage extends StatelessWidget {
         title: Text('Profile'),
       ),
       body: FutureBuilder<String>(
-        future: getCurrentUserDisplayName(),
+        future: _displayNameFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -94,7 +114,7 @@ class ProfilePage extends StatelessWidget {
           final displayName = snapshot.data;
 
           return FutureBuilder<String>(
-            future: getCurrentUserPhone(),
+            future: _phoneNumberFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -111,7 +131,7 @@ class ProfilePage extends StatelessWidget {
               final phoneNumber = snapshot.data;
 
               return FutureBuilder<String>(
-                future: getCurrentUserAddress(),
+                future: _addressFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -159,21 +179,73 @@ class ProfilePage extends StatelessWidget {
                             'Address: $address',
                             style: TextStyle(fontSize: 30),
                           ),
-                          
                         ),
-                        
                         SizedBox(height: 60),
                         Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => NewPage(),
-                                ),
-                              );
-                            },
-                            child: Text('Edit Profile',style: TextStyle(fontSize: 30),),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NewPage(),
+                                  ),
+                                );
+                              },
+                              child: Text('Edit Profile', style: TextStyle(fontSize: 30)),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Center(
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MyRequestsPage(),
+                                  ),
+                                );
+                              },
+                              child: Text('My Requests', style: TextStyle(fontSize: 30)),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Center(
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CancelledPage(),
+                                  ),
+                                );
+                              },
+                              child: Text('Cancelled Orders', style: TextStyle(fontSize: 30)),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Center(
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ShipPage(),
+                                  ),
+                                );
+                              },
+                              child: Text('To Ship', style: TextStyle(fontSize: 30)),
+                            ),
                           ),
                         ),
                       ],
