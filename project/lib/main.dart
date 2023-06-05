@@ -9,6 +9,7 @@ import 'new_page.dart';
 import 'store_page.dart';
 
 // BUG FIXES
+// BUG FIXES 2
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
