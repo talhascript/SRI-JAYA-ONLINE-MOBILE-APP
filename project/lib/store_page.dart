@@ -7,6 +7,7 @@ import 'package:project/product_page.dart';
 import 'package:project/profile_page.dart';
 import 'package:project/login_page.dart';
 import 'package:project/about_us_page.dart';
+import 'package:project/student_verification_page.dart';
 
 class StorePage extends StatefulWidget {
   final String currentUserDisplayName;
@@ -259,16 +260,16 @@ class AppDrawer extends StatelessWidget {
               );
             },
           ),
-          ListTile(
-            leading: Icon(Icons.chat),
-            title: Text(
-              'Chat With the Store',
-              style: TextStyle(fontSize: 21),
-            ),
-            onTap: () {
-              // Handle Chat With the Store tap
-            },
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.chat),
+          //   title: Text(
+          //     'Chat With the Store',
+          //     style: TextStyle(fontSize: 21),
+          //   ),
+          //   onTap: () {
+          //     // Handle Chat With the Store tap
+          //   },
+          // ),
           ListTile(
             leading: Icon(Icons.school),
             title: Text(
@@ -277,6 +278,12 @@ class AppDrawer extends StatelessWidget {
             ),
             onTap: () {
               // Handle Student Verification tap
+               Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => StudentVerification(),
+                ),
+              );
             },
           ),
           ListTile(

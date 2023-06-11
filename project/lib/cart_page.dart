@@ -2,6 +2,7 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 
+
 // class CartPage extends StatefulWidget {
 //   @override
 //   _CartPageState createState() => _CartPageState();
@@ -171,6 +172,7 @@
 //     // Get the total price
 //     int totalPrice = 0;
 //     List<String> productIds = [];
+//     List<int> quantities = [];
 
 //     for (QueryDocumentSnapshot cartItem in cartSnapshot.docs) {
 //       final productName = cartItem['productName'] as String;
@@ -188,6 +190,7 @@
 //           final productId = productSnapshot.docs.first.id;
 
 //           productIds.add(productId);
+//           quantities.add(quantity);
 
 //           final itemPrice = productPrice * quantity;
 //           totalPrice += itemPrice;
@@ -204,7 +207,7 @@
 //     await FirebaseFirestore.instance.collection('requested').add({
 //       'userId': userId,
 //       'productIds': productIds,
-//       'quantity': cartSnapshot.docs.length,
+//       'quantities': quantities,
 //       'totalPrice': totalPrice,
 //       'status': 'pending',
 //     });
@@ -235,22 +238,20 @@
 //             ),
 //             SizedBox(height: 16),
 //             Text(
-//               'Your order has been placed successfully!',
-//               style: TextStyle(fontSize: 18),
+//               'Your order has been requested successfully!, Go to Your Profile Page to get your order status',
+//               style: TextStyle(fontSize: 18,), textAlign: TextAlign.center,
+
 //             ),
 //           ],
 //         ),
 //       ),
 //     );
 //   }
-// }
-//// SUCCESS
-
+// } //// SUCCESS 
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 
 class CartPage extends StatefulWidget {
   @override
@@ -263,6 +264,9 @@ class _CartPageState extends State<CartPage> {
       FirebaseFirestore.instance.collection('cart');
   CollectionReference productsCollection =
       FirebaseFirestore.instance.collection('products');
+  CollectionReference verificationCollection =
+      FirebaseFirestore.instance.collection('verification');
+
   String userId = FirebaseAuth.instance.currentUser!.uid;
 
   @override
@@ -452,6 +456,18 @@ class _CartPageState extends State<CartPage> {
       await cartItem.reference.delete();
     }
 
+    // Check verification document for validity
+    DocumentSnapshot verificationSnapshot =
+        await verificationCollection.doc(userId).get();
+    bool isValid = verificationSnapshot.exists &&
+        verificationSnapshot.get('valid') == true;
+
+    // Apply discount if valid
+    if (isValid) {
+      double discountPercentage = 0.15;
+      totalPrice -= (totalPrice * discountPercentage).round();
+    }
+
     // Add the order to the 'requested' collection
     await FirebaseFirestore.instance.collection('requested').add({
       'userId': userId,
@@ -487,9 +503,11 @@ class OrderedPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Your order has been requested successfully!, Go to Your Profile Page to get your order status',
-              style: TextStyle(fontSize: 18,), textAlign: TextAlign.center,
-
+              'Your order has been requested successfully! Go to Your Profile Page to check your order status.',
+              style: TextStyle(
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
             ),
           ],
         ),

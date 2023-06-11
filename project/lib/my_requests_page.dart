@@ -10,6 +10,18 @@ class MyRequestsPage extends StatefulWidget {
 }
 
 class _MyRequestsPageState extends State<MyRequestsPage> {
+  String? userId;
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUserId().then((id) {
+      setState(() {
+        userId = id;
+      });
+    });
+  }
+
   Future<String?> getCurrentUserId() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
@@ -19,7 +31,6 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
   }
 
   Future<List<Map<String, dynamic>>> getUserOrders() async {
-    final String? userId = await getCurrentUserId();
     if (userId != null) {
       final QuerySnapshot requestSnapshot = await FirebaseFirestore.instance
           .collection('requested')
@@ -37,10 +48,11 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
           final String productId = productIds[i];
           final int quantity = quantities[i];
 
-          final DocumentSnapshot productSnapshot = await FirebaseFirestore.instance
-              .collection('products')
-              .doc(productId)
-              .get();
+          final DocumentSnapshot productSnapshot =
+              await FirebaseFirestore.instance
+                  .collection('products')
+                  .doc(productId)
+                  .get();
 
           if (productSnapshot.exists) {
             final String productName = productSnapshot.get('pname');
@@ -65,7 +77,6 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
   }
 
   Future<int> getTotalPrice() async {
-    final String? userId = await getCurrentUserId();
     if (userId != null) {
       final QuerySnapshot requestSnapshot = await FirebaseFirestore.instance
           .collection('requested')
@@ -83,6 +94,24 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
       return totalPrice;
     } else {
       return 0;
+    }
+  }
+
+  Future<bool> isVerificationValid() async {
+    if (userId != null) {
+      final QuerySnapshot verificationSnapshot = await FirebaseFirestore.instance
+          .collection('verification')
+          .where('userID', isEqualTo: userId)
+          .get();
+
+      if (verificationSnapshot.docs.isNotEmpty) {
+        final bool isValid = verificationSnapshot.docs.first.get('valid');
+        return isValid;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
     }
   }
 
@@ -107,7 +136,10 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
 
     if (confirmed != null && confirmed) {
       try {
-        await FirebaseFirestore.instance.collection('requested').doc(orderId).delete();
+        await FirebaseFirestore.instance
+            .collection('requested')
+            .doc(orderId)
+            .delete();
         final totalPrice = await getTotalPrice();
         setState(() {
           // Update total price
@@ -153,7 +185,6 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
               children: [
                 Expanded(
                   child: ListView.builder(
-                    
                     itemCount: orders.length,
                     itemBuilder: (context, index) {
                       final order = orders[index];
@@ -165,15 +196,21 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
                       return Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: ListTile(
-                        shape: RoundedRectangleBorder(
-                              side: BorderSide(width: 0.5),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(width: 0.5),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                           title: Text('Product Name: $productName'),
-                          subtitle: Text('Quantity: $quantity ||  Price: RM $price'),
-                          trailing: IconButton(
-                            icon: Icon(Icons.cancel),
-                            onPressed: () => cancelOrder(orderId),
+                          subtitle:
+                              Text('Quantity: $quantity ||  Price: RM $price'),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.cancel),
+                                onPressed: () => cancelOrder(orderId),
+                              ),
+                            ],
                           ),
                         ),
                       );
@@ -193,15 +230,45 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
 
                     final totalPrice = snapshot.data;
 
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Total Price: RM $totalPrice',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Total Price: RM $totalPrice',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
-                      ),
+                        FutureBuilder<bool>(
+                          future: isVerificationValid(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return CircularProgressIndicator();
+                            }
+
+                            if (snapshot.hasError) {
+                              return Text('Error retrieving verification status');
+                            }
+
+                            final bool isValid = snapshot.data ?? false;
+
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                isValid ? 'Discount is applied' : 'Discount isn\'t applied',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     );
                   },
                 ),

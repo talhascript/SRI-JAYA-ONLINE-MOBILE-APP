@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project/login_page.dart';
 import 'package:project/store_product_page.dart';
+import 'package:project/student_check_page.dart';
 
 import 'customer_page.dart';
 import 'approve_page.dart'; // Import the page you want to navigate to
@@ -20,6 +21,19 @@ class AdminPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => StudentCheck()),
+                );
+              },
+              child: Text(
+                'Verify Student Accounts',
+                style: TextStyle(fontSize: 14),
+
+              ),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(

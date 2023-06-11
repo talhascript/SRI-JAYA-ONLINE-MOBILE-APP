@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.project.app-mergeDebugResources-27:/values-watch-v20/values-watch-v20.xml",
+            "outputFile": "com.example.project.app-mergeDebugResources-35:/values-watch-v20/values-watch-v20.xml",
             "map": [
                 {
                     "source": "C:\\Users\\talha\\.gradle\\caches\\transforms-3\\25f7820b621fcbf069b2cb31fcba42e2\\transformed\\jetified-play-services-auth-20.5.0\\res\\values-watch-v20\\values.xml",
