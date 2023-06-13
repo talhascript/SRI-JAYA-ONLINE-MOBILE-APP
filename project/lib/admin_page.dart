@@ -5,6 +5,7 @@ import 'package:project/login_page.dart';
 import 'package:project/store_product_page.dart';
 import 'package:project/student_check_page.dart';
 
+import 'chat_list_page.dart';
 import 'customer_page.dart';
 import 'approve_page.dart'; // Import the page you want to navigate to
 
@@ -21,6 +22,19 @@ class AdminPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChatList()),
+                );
+              },
+              child: Text(
+                'CHAT WITH CUSTOMERS',
+                style: TextStyle(fontSize: 14),
+
+              ),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(

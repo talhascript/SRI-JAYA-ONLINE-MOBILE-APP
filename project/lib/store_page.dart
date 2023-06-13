@@ -9,6 +9,8 @@ import 'package:project/login_page.dart';
 import 'package:project/about_us_page.dart';
 import 'package:project/student_verification_page.dart';
 
+import 'customer_chat_page.dart';
+
 class StorePage extends StatefulWidget {
   final String currentUserDisplayName;
 
@@ -72,6 +74,7 @@ class _StorePageState extends State<StorePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Hello! ${widget.currentUserDisplayName} Happy Shopping'),
+        
         automaticallyImplyLeading: false,
         
       ),
@@ -260,16 +263,22 @@ class AppDrawer extends StatelessWidget {
               );
             },
           ),
-          // ListTile(
-          //   leading: Icon(Icons.chat),
-          //   title: Text(
-          //     'Chat With the Store',
-          //     style: TextStyle(fontSize: 21),
-          //   ),
-          //   onTap: () {
-          //     // Handle Chat With the Store tap
-          //   },
-          // ),
+          ListTile(
+            leading: Icon(Icons.chat),
+            title: Text(
+              'Chat With the Store',
+              style: TextStyle(fontSize: 21),
+            ),
+            onTap: () {
+              // Handle Chat With the Store tap
+                 Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CustomerChat(),
+                ),
+              );
+            },
+          ),
           ListTile(
             leading: Icon(Icons.school),
             title: Text(
