@@ -1,2 +1,2 @@
 # Sri-Jaya-Online
-App Dev Project
+A mobile app for the SRI-JAYA-TECHNOLOGIES shop
